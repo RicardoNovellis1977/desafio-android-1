@@ -10,17 +10,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.picpay.desafio.android.R
 import com.picpay.desafio.android.model.User
-import com.picpay.desafio.android.repository.local.UserDataBase
 import com.picpay.desafio.android.viewmodel.UserViewModel
 import com.picpay.desafio.android.viewmodel.state.UserState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 
-class MainActivity : AppCompatActivity(R.layout.activity_main) {
+class MainActivity : AppCompatActivity() {
     private val adapter: UserListAdapter by lazy { UserListAdapter() }
     private val viewModel: UserViewModel by viewModel()
-
     private val recyclerView: RecyclerView by lazy {
         findViewById<RecyclerView>(R.id.recyclerView)
     }
