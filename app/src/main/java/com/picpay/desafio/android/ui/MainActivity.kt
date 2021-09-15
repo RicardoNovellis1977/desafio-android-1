@@ -5,32 +5,27 @@ import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.picpay.desafio.android.R
+import com.picpay.desafio.android.databinding.ActivityMainBinding
 import com.picpay.desafio.android.model.User
-import com.picpay.desafio.android.repository.local.UserDataBase
 import com.picpay.desafio.android.viewmodel.UserViewModel
 import com.picpay.desafio.android.viewmodel.state.UserState
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-
-class MainActivity : AppCompatActivity(R.layout.activity_main) {
+class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
     private val adapter: UserListAdapter by lazy { UserListAdapter() }
     private val viewModel: UserViewModel by viewModel()
 
-    private val recyclerView: RecyclerView by lazy {
-        findViewById<RecyclerView>(R.id.recyclerView)
-    }
-    private val progressBar: ProgressBar by lazy {
-        findViewById<ProgressBar>(R.id.user_list_progress_bar)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.lifecycleOwner = this
 
         initViews()
         initObservables()
@@ -51,9 +46,9 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     private fun initViews() {
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        progressBar.visibility = View.VISIBLE
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.userListProgressBar.visibility = View.VISIBLE
     }
 
 
@@ -70,11 +65,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     private fun toggleList(show: Boolean) {
-        recyclerView.visibility = if (show) View.VISIBLE else View.GONE
+        binding.recyclerView.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     private fun toggleProgressbar(show: Boolean) {
-        progressBar.visibility = if (show) View.VISIBLE else View.GONE
+        binding.userListProgressBar.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     private fun showMessageError(message: String) {

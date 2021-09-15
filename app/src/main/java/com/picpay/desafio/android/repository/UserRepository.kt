@@ -22,12 +22,12 @@ class UserRepository(
                 data = response
             )
         } catch (exception: Exception) {
-            if (!getContactsLocal().isNullOrEmpty()){
+            if (!getContactsLocal().isNullOrEmpty()) {
                 ResultRepositoryModel(
                     isSuccess = true,
                     data = getContactsLocal()
                 )
-            }else{
+            } else {
                 ResultRepositoryModel(
                     isSuccess = false,
                     data = getContactsLocal(),
